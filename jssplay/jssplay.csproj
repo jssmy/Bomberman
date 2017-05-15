@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0F674716-769C-49EA-B0C6-4A7CA9E947A7}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>jssplay</RootNamespace>
+    <AssemblyName>jssplay</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="microsoft.directx.directsound">
+      <HintPath>..\..\..\..\..\Downloads\microsoft.directx.directsound.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="controller\Controller.cs" />
+    <Compile Include="entity\Bomb.cs" />
+    <Compile Include="entity\Dinamic_wall.cs" />
+    <Compile Include="entity\Enemy.cs" />
+    <Compile Include="entity\Figure.cs" />
+    <Compile Include="entity\Flame.cs" />
+    <Compile Include="entity\Image.cs" />
+    <Compile Include="entity\Maps.cs" />
+    <Compile Include="entity\Player.cs" />
+    <Compile Include="entity\Presentation.cs" />
+    <Compile Include="entity\Scenary.cs" />
+    <Compile Include="entity\Sprite.cs" />
+    <Compile Include="entity\Static_wall.cs" />
+    <Compile Include="entity\Time.cs" />
+    <Compile Include="levels\first.cs" />
+    <Compile Include="main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="main.Designer.cs">
+      <DependentUpon>main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="main.resx">
+      <DependentUpon>main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\B.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Badman.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BE3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BM11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BM22.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BM33.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BM44.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bomba1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Braz.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\C1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\C4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\C7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\C10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\C13.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\C16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\C19.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Door.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Enemy-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Explo_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fundo2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fundo3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FundoMap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\igual.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Llama.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mapa1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mapa2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mapa3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MatrizPower.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Muerto.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\numTempo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Opction.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pared1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pause.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Players.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ponteiro.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Ship-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sombra.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vacio.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\W11_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\W22.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\W22_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\W33.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\W33_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Zapato.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fundo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fundo1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\W11.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\B1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bomberman_Quest_04_6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bomberman_Quest_09_6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bomberman_Quest_08_6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bomberman_Quest_10_6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bomberman_Quest_12_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\present5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bomberman_Quest_19_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bomberman_Quest_24_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ini1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ini4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ini6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ini7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ini8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\present8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ini9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ini10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ini11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\intro1.wav" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
