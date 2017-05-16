@@ -68,6 +68,11 @@ namespace jssplay.entity
             flame.Draw(gr);
             posMatrix= flame.posMatrixx();
         }
+        public List<System.Drawing.Point> posFlame()
+        {
+            return flame.posFlame;
+        }
+
         public void Dispose()
         {
             flame.Dispose();

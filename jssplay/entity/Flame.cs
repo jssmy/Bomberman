@@ -43,6 +43,7 @@ namespace jssplay.entity
             this.Matrix = matrix;
             this.posMatrix = new List<int>();
             this.posMatrixItems = new List<int>();
+            this.posFlame = new List<System.Drawing.Point>();
         }
         public void Draw(System.Drawing.Graphics gr) {
             Derecha.Draw(gr);
@@ -63,6 +64,14 @@ namespace jssplay.entity
         private void Size(){}
         public List<int> posMatrixxItems(){   return posMatrixItems;}
         public List<int> posMatrixx(){return posMatrix;}  /// retorna las pociones de la llama en la matriz
+                                                          /// 
+        
+        ///<summary>
+        /// Estas funciones lo que hacen es calcular la posicion de los itemss en la matriz
+        /// recordar que algunas paredes tiene items, estos items se muestran cuando las paredes son explotadass
+        /// </summary>
+
+
         private void setItemsPos_Center()
         {
             int i = ((center.Y - 36) + center.Height / 2) / 32; /// obtiene la posicion i de la llama en la matriz
@@ -129,13 +138,19 @@ namespace jssplay.entity
             posMatrixItems.Add(j);
         }
 
+
         ///cuando escribi este codigo solo dios y yo lo conociamos
         ///ahora solo dios lo sabe
         /// <summary>
         /// / estas funciones definir nuevas cooredenadass para las llamas
         /// es de acuerdo si ha encontrado alguna pared
         /// si encuentra alguna pared la llama se acorta
+        /// ademas encuentra lass posiciones dentro de la matriz
+        /// esto servira luego para identificar por donde pasa la llama y poder eliminar algunass paredes
+        /// en caso que sea necesario
+        /// en algunos casos, por ejemplo, se superppone las imagenes para determinar el tamanio de las llamas
         /// </summary>
+        
         private void OptionDerecha()
         {
 
@@ -297,23 +312,28 @@ namespace jssplay.entity
 
             if (Matrix[arriba_i, arriba_j] == 2)
             {
+
                 ArribaFinal.X = Arriba.X;
                 ArribaFinal.Y = Arriba.Y;
                 arribaF_i = ((ArribaFinal.Y - 36) + ArribaFinal.Height / 2) / 32;
                 arribaF_j = ((ArribaFinal.X - 42) + ArribaFinal.Width / 2) / 33;
                 Arriba.Y = center.Y;
                 Arriba.X = center.X;
+                /// significa que se ha encontrado una pared sin item
                 int i = arriba_i; ;
                 int j = arriba_j;
+                //  primero se ha agregado la llama que no es final, es decir no es el extremo de la llama
                 posMatrix.Add(i);
                 posMatrix.Add(j);
             }
             else
-            {
+            {   
+                /// significa que la paren con el que ha colisionado la llama tiene un item
                 setItemPos_Arriba();
             }
             if (Matrix[arribaF_i, arribaF_j] == 2)
             {
+                //se ha agrega por en segundo lugar la posicion de la llama final, es decir el extremmo  de la llama
                 int i = arribaF_i;
                 int j = arribaF_j;
                 posMatrix.Add(i);
@@ -396,9 +416,14 @@ namespace jssplay.entity
         }
 
         /// <summary>
+        ///  esta llama unicamente almacena los ejes x y y de la llama horizonta y vertical
+        /// </summary>
+        public List<System.Drawing.Point> posFlame { get; set; }
+
+        /// <summary>
         /// finalmente, la funcion GetSizeLlama se define las coordenadas finales
         /// para ello se llaman a todas las funciones que lo hacen
-        /// 
+        /// aca se llaman a todas lass funciones para calcular tamanio de la llama
         /// </summary>
         public void GeTSizeLLama()
         {
@@ -422,20 +447,39 @@ namespace jssplay.entity
                 ArribaFinal.X = center.X;
                 ArribaFinal.Y = center.Y - ArribaFinal.Height;
             }
+            /// se ubica de esta manera la pociion de estass funciones
+            /// debido a   que luego se necesitara llas coordenadass de las llamas arribafinal
+            /// y derecha final
+            /// para evaluar la colision con el jugador
+            /// se concluye que lass pociiones que se necesitara posteriormente se encuentra na
+            /// matrix[2,3] -> Arriba final
+            /// matrix[6,7] -> derecha final
+            /// en  total hay 18 posiciones
+            /// se sabe que si se obtien el primer par  posMatrixx[0] y posMatrix[1]  es i y j respectivamente
+            /// de la llama Arriba
+            OptionArriba();
             //-----------------------------------
             OptionDerecha();
             //---------------------------------------------------------
             OptionIzquierda();
             ///--------------------------------------------------------------
-            OptionArriba();
+            
             ///--------------------------------------------------------------
             OptionAbajo();
             //-------
             ///--------------------------------------------------------------
             setItemsPos_Center();
             posMatrixx();
+            ///insertar la pociocion de la llama horizontal y verticla
+            System.Drawing.Point pt = new System.Drawing.Point(ArribaFinal.X, ArribaFinal.Y);
+            posFlame.Add(pt); // en posFlame[0] -> VERITCAL
+            pt = new System.Drawing.Point(DerechaFinal.X, DerechaFinal.Y);
+            posFlame.Add(pt); // en posFlame[1]-> horizontal
         }
 
+        /// <summary>
+        /// esta funcion lo que hace es limpiar la memoria antes de eliminar la llama cuando
+        /// </summary>
         public void Dispose()
         {
             this.Matrix = null;

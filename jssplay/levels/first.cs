@@ -34,16 +34,14 @@ namespace jssplay.levels
             
             player.move(Key, gr);
             
-            
             if (player.explote) {
+              
                 scenary.DeleteItem(player.postMatrix);
+                
                 player.map = scenary.Map;
                 player.explote = false;
             }
 
-            
-            
-            
 
         }
 

@@ -51,7 +51,7 @@ namespace jssplay.entity
             this.backroud = new Image(0,0,bckimg);
             map = new Maps(level);
             this.Map = map.Map;
-            
+            map = null;
             min = new Time(90,5,10, Properties.Resources.numTempo);
             sec2 = new Time(110,5,10, Properties.Resources.numTempo);
             sec1 = new Time(120, 5, 10, Properties.Resources.numTempo);
@@ -62,19 +62,19 @@ namespace jssplay.entity
 
         }
         public void create_map(){
-            for (int i = 0; i < map.Map.GetLength(0); i++){
-                for (int j = 0; j < map.Map.GetLength(1); j++)
+            for (int i = 0; i < Map.GetLength(0); i++){
+                for (int j = 0; j < Map.GetLength(1); j++)
                 {
                     int x = staticw.image.Width * j + 42;
                     int y = staticw.image.Height * i + 36;
-                    if (map.Map[i, j] == 1)
+                    if (Map[i, j] == 1)
                     {
                         staticw = new Static_wall(x,y,i,j,s_wimg);
                         
 
                         walls.Add(staticw);
                     }
-                    else if (map.Map[i, j] == 2)
+                    else if (Map[i, j] == 2)
                     {
 
                         dinamicw = new Dinamic_wall(x,y,i,j,d_wimg);
@@ -86,10 +86,6 @@ namespace jssplay.entity
                 }
             }
             
-            
-            
-           // this.Map = map.Map;
-            ///map = null;
 
         }
 

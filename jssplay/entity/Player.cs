@@ -22,7 +22,7 @@ using System.Threading.Tasks;
         private int posX = 0;
         private int posY = 0;
         private int psValue; /// es la variable que restringe pasar sobre la pared
-        
+        public bool state;
         public List<int> postMatrix { get; set; }
 
         public Player(int x, int y, System.Drawing.Bitmap img, int [,] map) {
@@ -54,13 +54,26 @@ using System.Threading.Tasks;
         {
 
             Draw(gr);
+            if (this.state)Died();
+            else KeyMove();
+            
+                
+                
+            
+                    
             DrawBomb(gr);
             this.keyPress = keypss;
-            KeyMove();
+            
 
 
         }
-        
+
+        public void Died() {
+            this.row = 4;
+            this.col++;
+            if (this.col > 3) this.col = 0;
+        }
+
 
         private void KeyMove()
         {
@@ -154,15 +167,15 @@ using System.Threading.Tasks;
             bmbs.Add(bmb);
         }
 
-       
-
         private void DrawBomb(System.Drawing.Graphics gr) {
             for (int i = 0; i < bmbs.Count; i++)
             {
                 bmbs[i].move(gr);
                 if (bmbs[i].xplote) {
                     this.explote = true;
+                    
                     postMatrix = bmbs[i].posMatrix;
+                    this.state= EvaluateExplotion(bmbs[i].posFlame());
                     bmbs[i].Dispose();
                     bmbs.Remove(bmbs[i]);
                     
@@ -171,6 +184,40 @@ using System.Threading.Tasks;
         
         }
 
+        /// <summary>
+        ///            ------
+        ///            |_x_|
+        ///            |   |
+        ///  --------------------------
+        ///  |  x |    |   |    |     |   
+        ///  ----------|---------------
+        ///            |   |
+        ///            ------
+        ///            |  |
+        ///            ------
+        /// En la calse Flame, la cual es la llama de la bomba cuando explota
+        /// se calcula las pociciones de cada parte de la llama en en buffer, 
+        /// como se ha visto estas se sobrepone una con otras para determinar el tamanio de la llama
+        /// ademas se calcula cada posicion de ellas en la matrix
+        /// las en la imagen de arribba muestra las coordenadass que se tomara para evaluar la colicion con el personaje
+        /// es decir, se creara dos cuadros grandes de forma vertical y horizontal para coclisionar con las  dimensiones  y pocision del personaje
+        /// claro que la llama tiene el nivel 1 y 2, la identifica el tamanio de esta, por lo que el algoritmo es lo siguiente
+        /// </summary>
+        /// <param name="postMaxtrix"></param>
+        /// <param name="level"></param>
+        public bool EvaluateExplotion(List<System.Drawing.Point> posFlame)
+        {
+            
+            /// tener en cuenta que las predes tiene de dimension 32x32
+            /// que las paredes se encuetran en un marge de 42 del eje x y 36 del eje y
+            System.Drawing.Rectangle horizontal = new System.Drawing.Rectangle(posFlame[1].X, posFlame[1].X, 32, 32);
+            System.Drawing.Rectangle vertical = new System.Drawing.Rectangle(posFlame[0].X, posFlame[0].X, 32, 32);
+            System.Drawing.Rectangle player = new System.Drawing.Rectangle(this.X, this.Y,this.Width, this.Height);
+            if (horizontal.IntersectsWith(player)) return true; ;
+            if (vertical.IntersectsWith(player)) return true;
+
+            return false;
+        }
         
 
 
