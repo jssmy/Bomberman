@@ -52,20 +52,12 @@ using System.Threading.Tasks;
         
         public void move(String keypss, System.Drawing.Graphics gr)
         {
-
             Draw(gr);
             if (this.state)Died();
             else KeyMove();
-            
-                
-                
-            
-                    
             DrawBomb(gr);
             this.keyPress = keypss;
             
-
-
         }
 
         public void Died() {
@@ -175,7 +167,7 @@ using System.Threading.Tasks;
                     this.explote = true;
                     
                     postMatrix = bmbs[i].posMatrix;
-                    this.state= EvaluateExplotion(bmbs[i].posFlame());
+                    this.state= EvaluateExplotion(bmbs[i].posFlame(),2);
                     bmbs[i].Dispose();
                     bmbs.Remove(bmbs[i]);
                     
@@ -205,13 +197,13 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="postMaxtrix"></param>
         /// <param name="level"></param>
-        public bool EvaluateExplotion(List<System.Drawing.Point> posFlame)
+        public bool EvaluateExplotion(List<System.Drawing.Point> posFlame, int level)
         {
             
             /// tener en cuenta que las predes tiene de dimension 32x32
             /// que las paredes se encuetran en un marge de 42 del eje x y 36 del eje y
-            System.Drawing.Rectangle horizontal = new System.Drawing.Rectangle(posFlame[1].X, posFlame[1].X, 32, 32);
-            System.Drawing.Rectangle vertical = new System.Drawing.Rectangle(posFlame[0].X, posFlame[0].X, 32, 32);
+            System.Drawing.Rectangle horizontal = new System.Drawing.Rectangle(posFlame[1].X, posFlame[1].Y, 32*(2*level +1), 32);
+            System.Drawing.Rectangle vertical = new System.Drawing.Rectangle(posFlame[0].X, posFlame[0].Y, 32, 32*(2*level+1));
             System.Drawing.Rectangle player = new System.Drawing.Rectangle(this.X, this.Y,this.Width, this.Height);
             if (horizontal.IntersectsWith(player)) return true; ;
             if (vertical.IntersectsWith(player)) return true;

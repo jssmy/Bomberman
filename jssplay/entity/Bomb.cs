@@ -23,7 +23,7 @@ namespace jssplay.entity
             
             this.div = div;
             Size();
-            flame = new Flame(this.X, this.Y,1,matrix);
+            flame = new Flame(this.X, this.Y,2,matrix);
             matrix = null;
             posMatrix = new List<int>();
         }
