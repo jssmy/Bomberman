@@ -12,7 +12,7 @@ namespace jssplay.entity
         private List<Static_wall>  walls_statics = null;
         private List<Figure> walls = new List<Figure>();
         private Maps map = null;
-        public int[,] Map;
+        public int[,] Map{set;get;}
         
         /// <summary>
         /// /times
@@ -37,7 +37,7 @@ namespace jssplay.entity
         private Static_wall staticw;
         Image backroud = null;
 
-
+        public Boolean deleteP { set; get; }
         public Scenary(Bitmap d_w, Bitmap s_w, Bitmap bckimg, int level) {
             walls_dinamics = new List<Dinamic_wall>();
             walls_statics = new List<Static_wall>();
@@ -50,7 +50,7 @@ namespace jssplay.entity
             
             this.backroud = new Image(0,0,bckimg);
             map = new Maps(level);
-            Map = map.Map;
+            this.Map = map.Map;
             
             min = new Time(90,5,10, Properties.Resources.numTempo);
             sec2 = new Time(110,5,10, Properties.Resources.numTempo);
@@ -58,6 +58,7 @@ namespace jssplay.entity
             igual = new Time(100,5,1, Properties.Resources.igual);
 
             create_map();
+            deleteP = false;
 
         }
         public void create_map(){
@@ -84,8 +85,11 @@ namespace jssplay.entity
 
                 }
             }
-            this.Map = map.Map;
-            map = null;
+            
+            
+            
+           // this.Map = map.Map;
+            ///map = null;
 
         }
 
@@ -134,11 +138,52 @@ namespace jssplay.entity
             
             for (int i = 0; i < walls.Count; i++) {
                     walls[i].Draw(gr);
+                    if (walls[i].GetType().Equals(typeof(Dinamic_wall))) {
+                        Dinamic_wall d = (Dinamic_wall)walls[i];
+                        if (d.state) d.Die();
+                    }
                                      
             }
 
             
         }
+
+        public void DeleteItem(List<int> posMatrix)
+        {
+            int count = 0;
+            int a = 0;
+            int b = 0;
+            dinamicw = null;
+            
+            if (posMatrix != null)
+            {
+                for (int i = 0; i < posMatrix.Count; i++)
+                {
+                    count++;
+                    if (count == 1)
+                    {
+                        a = posMatrix[i];
+                    }
+                    if (count == 2)
+                    {
+                        b = posMatrix[i];
+                        dinamicw = (entity.Dinamic_wall)walls.Find(dw=>dw.i==a && dw.j==b );
+                        if (dinamicw != null)
+                        {
+                            dinamicw.state = true;
+                           this.Map[a,b]=0;
+                           //this.deleteP = true;
+                        }
+
+
+                        count = 0;
+                    }
+
+                }
+            }
+            //posMatrix = null;
+        }
+
 
         public void Dispose()
         {

@@ -10,12 +10,11 @@ using System.Threading.Tasks;
     public class Player:Sprite
     {
         public String keyPress;
-
+        public bool explote { get; set; }
         private List<Bomb> bmbs;
-        private int[,] map;
+        public int[,] map{get;set;}
         private Bomb bmb;
         private System.Drawing.Bitmap imgBomb;
-        
         private int live;
         private int score;
         public int varX{get; set;}
@@ -23,9 +22,8 @@ using System.Threading.Tasks;
         private int posX = 0;
         private int posY = 0;
         private int psValue; /// es la variable que restringe pasar sobre la pared
-        private int auxX;
-        private int auxY;
-
+        
+        public List<int> postMatrix { get; set; }
 
         public Player(int x, int y, System.Drawing.Bitmap img, int [,] map) {
             this.X = x;
@@ -39,8 +37,8 @@ using System.Threading.Tasks;
             imgBomb = new System.Drawing.Bitmap(Properties.Resources.B1);
             this.map = map;
             this.psValue = 2;
-            
-
+            postMatrix = new List<int>();
+            //xplote = false;
         }
 
         public override void Size()
@@ -163,13 +161,17 @@ using System.Threading.Tasks;
             {
                 bmbs[i].move(gr);
                 if (bmbs[i].xplote) {
+                    this.explote = true;
+                    postMatrix = bmbs[i].posMatrix;
                     bmbs[i].Dispose();
                     bmbs.Remove(bmbs[i]);
+                    
                 };
             }
         
         }
 
+        
 
 
     }

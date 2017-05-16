@@ -45,10 +45,6 @@ namespace jssplay.entity
             this.posMatrixItems = new List<int>();
         }
         public void Draw(System.Drawing.Graphics gr) {
-
-            
-            
-            
             Derecha.Draw(gr);
             DerechaFinal.Draw (gr);
 
@@ -65,8 +61,6 @@ namespace jssplay.entity
         }
 
         private void Size(){}
-
-
         public List<int> posMatrixxItems(){   return posMatrixItems;}
         public List<int> posMatrixx(){return posMatrix;}  /// retorna las pociones de la llama en la matriz
         private void setItemsPos_Center()
@@ -135,7 +129,8 @@ namespace jssplay.entity
             posMatrixItems.Add(j);
         }
 
-
+        ///cuando escribi este codigo solo dios y yo lo conociamos
+        ///ahora solo dios lo sabe
         /// <summary>
         /// / estas funciones definir nuevas cooredenadass para las llamas
         /// es de acuerdo si ha encontrado alguna pared

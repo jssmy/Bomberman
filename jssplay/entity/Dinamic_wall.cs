@@ -9,8 +9,8 @@ namespace jssplay.entity
     public class Dinamic_wall:Sprite
     {
         public bool state;
-        int i;
-        int j;
+        //public int i;
+        //public int j;
         public Dinamic_wall(int x, int y, int i, int j , System.Drawing.Bitmap img)
         {
             
@@ -19,6 +19,8 @@ namespace jssplay.entity
             this.image = img;
             this.state = false;
             this.Size();
+            this.i = i;
+            this.j = j; ;
         }
 
         public override void Size()

@@ -9,6 +9,9 @@ namespace jssplay.entity
 {
     public abstract class Figure
     {
+        public int i;
+        public int j;
+
         public int X{set;get;}
         public int Y{set;get;}
         public int Width{set;get;}

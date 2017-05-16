@@ -14,7 +14,7 @@ namespace jssplay.entity
         //private Boolean state;
         private int div;
         private int time;
-        
+        public List<int> posMatrix{set;get;}
         public Bomb(int x, int y,int div ,int [,] matrix,System.Drawing.Bitmap img)
         {
             this.X = x;
@@ -25,7 +25,7 @@ namespace jssplay.entity
             Size();
             flame = new Flame(this.X, this.Y,1,matrix);
             matrix = null;
-
+            posMatrix = new List<int>();
         }
 
         public override void Size()
@@ -66,13 +66,13 @@ namespace jssplay.entity
         public void Died(System.Drawing.Graphics gr)
         {
             flame.Draw(gr);
+            posMatrix= flame.posMatrixx();
         }
         public void Dispose()
         {
             flame.Dispose();
             flame = null;
             //this.image.Dispose();
-            
         }
 
     }
