@@ -16,12 +16,12 @@ namespace jssplay.levels
         private System.Drawing.Bitmap backimg;
         private entity.Scenary scenary;
         private entity.Player player;
-        public first(System.Drawing.Bitmap imgPlayer)
+        public first(System.Drawing.Bitmap imgPlayer, int n_player)
         {
             backimg = new System.Drawing.Bitmap(Properties.Resources.Fundo1);
             d_w = new System.Drawing.Bitmap(Properties.Resources.W11_1);
             s_w = new System.Drawing.Bitmap(Properties.Resources.W11);
-            scenary = new entity.Scenary(d_w,s_w,backimg,1);
+            scenary = new entity.Scenary(d_w,s_w,backimg,1,n_player );
             player = new entity.Player(42,14,imgPlayer,scenary.Map);
            //////////// scenary.Map = null;
             enemies = new List<entity.Enemy>();
@@ -40,6 +40,7 @@ namespace jssplay.levels
                 
                 player.map = scenary.Map;
                 player.explote = false;
+                if (player.state) scenary.life = player.live;
             }
 
 

@@ -60,7 +60,7 @@
     <Compile Include="entity\Scenary.cs" />
     <Compile Include="entity\Sprite.cs" />
     <Compile Include="entity\Static_wall.cs" />
-    <Compile Include="entity\Time.cs" />
+    <Compile Include="entity\Number.cs" />
     <Compile Include="levels\first.cs" />
     <Compile Include="main.cs">
       <SubType>Form</SubType>

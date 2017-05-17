@@ -18,10 +18,12 @@ namespace jssplay.entity
         /// /times
         /// </summary>
         
-        private Time min;
-        private Time sec1;
-        private Time sec2;
-        private Time igual;
+        private Number min;
+        private Number sec1;
+        private Number sec2;
+        private Number igual;
+        private Number Live;
+        public int life { get; set; }
         private int i;
         private int m;
         private int s1;
@@ -29,6 +31,7 @@ namespace jssplay.entity
         private int cs1;
         private int cs2;
         private int cm;
+        private int clife;
         //
         private System.Drawing.Bitmap d_wimg;
         private System.Drawing.Bitmap s_wimg;
@@ -38,11 +41,13 @@ namespace jssplay.entity
         Image backroud = null;
 
         public Boolean deleteP { set; get; }
-        public Scenary(Bitmap d_w, Bitmap s_w, Bitmap bckimg, int level) {
+        public Scenary(Bitmap d_w, Bitmap s_w, Bitmap bckimg, int level, int n_player) {
+            
+            
             walls_dinamics = new List<Dinamic_wall>();
             walls_statics = new List<Static_wall>();
-            
-            
+
+            life = 3;
             d_wimg = d_w;
             s_wimg = s_w;
             dinamicw = new Dinamic_wall(0,0,0, 0, d_wimg);
@@ -52,15 +57,37 @@ namespace jssplay.entity
             map = new Maps(level);
             this.Map = map.Map;
             map = null;
-            min = new Time(90,5,10, Properties.Resources.numTempo);
-            sec2 = new Time(110,5,10, Properties.Resources.numTempo);
-            sec1 = new Time(120, 5, 10, Properties.Resources.numTempo);
-            igual = new Time(100,5,1, Properties.Resources.igual);
+            min = new Number(90,5,10, Properties.Resources.numTempo);
+            sec2 = new Number(110,5,10, Properties.Resources.numTempo);
+            sec1 = new Number(120, 5, 10, Properties.Resources.numTempo);
+            igual = new Number(100,5,1, Properties.Resources.igual);
 
             create_map();
             deleteP = false;
+            LivePlayer(n_player);
 
         }
+
+        private void LivePlayer(int player) {
+            switch (player)
+            {
+                case 0:
+                    this.Live = new Number(195,5,10,Properties.Resources.numTempo);
+                    break;
+                case 1:
+                    this.Live = new Number(265, 5, 10, Properties.Resources.numTempo);
+                    break;
+                case 2:
+                    this.Live = new Number(335, 5, 10, Properties.Resources.numTempo);
+                    break;
+                case 3:
+                    this.Live = new Number(405, 5, 10, Properties.Resources.numTempo);
+                    break;
+
+            }
+        }
+        
+
         public void create_map(){
             for (int i = 0; i < Map.GetLength(0); i++){
                 for (int j = 0; j < Map.GetLength(1); j++)
@@ -88,8 +115,7 @@ namespace jssplay.entity
             
 
         }
-
-
+        
 
 
 
@@ -130,7 +156,7 @@ namespace jssplay.entity
 
             backroud.Draw(gr);
             runTime(gr);
-            
+            DrawLive(gr);
             
             for (int i = 0; i < walls.Count; i++) {
                     walls[i].Draw(gr);
@@ -180,6 +206,26 @@ namespace jssplay.entity
             //posMatrix = null;
         }
 
+        public void DrawLive(System.Drawing.Graphics gr) {
+            Live.Draw(gr);
+            Live.move(clife,0);
+            switch (this.life)
+            {
+                case 0:
+                    clife = 0;
+                    break;
+                case 1:
+                    clife = 1;
+                    break;
+                    
+                case 2:
+                    clife = 2;
+                    break;
+                case 3:
+                    clife = 3;
+                    break;
+            }
+        }
 
         public void Dispose()
         {

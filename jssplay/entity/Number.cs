@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace jssplay.entity
 {
-    public class Time:Sprite
+    public class Number:Sprite
     {
         private int div;
-        public Time(int x, int y, int div, System.Drawing.Bitmap img ) {
+        public Number(int x, int y, int div, System.Drawing.Bitmap img ) {
             this.X = x;
             this.Y = y;
             this.image = img;

@@ -15,7 +15,7 @@ using System.Threading.Tasks;
         public int[,] map{get;set;}
         private Bomb bmb;
         private System.Drawing.Bitmap imgBomb;
-        private int live;
+        public int live{get;set;}
         private int score;
         public int varX{get; set;}
         public int varY { get; set; }
@@ -23,11 +23,14 @@ using System.Threading.Tasks;
         private int posY = 0;
         private int psValue; /// es la variable que restringe pasar sobre la pared
         public bool state;
+        private int auX;
+        private int auxY;
+        private int interact;
         public List<int> postMatrix { get; set; }
 
         public Player(int x, int y, System.Drawing.Bitmap img, int [,] map) {
-            this.X = x;
-            this.Y = y;
+            this.X =auX =x;
+            this.Y=auxY = y;
             this.image = img;
             this.Size();
             this.live = 3;
@@ -53,7 +56,7 @@ using System.Threading.Tasks;
         public void move(String keypss, System.Drawing.Graphics gr)
         {
             Draw(gr);
-            if (this.state)Died();
+            if (this.state)Died(); 
             else KeyMove();
             DrawBomb(gr);
             this.keyPress = keypss;
@@ -63,9 +66,22 @@ using System.Threading.Tasks;
         public void Died() {
             this.row = 4;
             this.col++;
-            if (this.col > 3) this.col = 0;
-        }
+            
+            if (this.col > 3) {
+                interact++;
+                this.col = 0;
+                if (interact > 3)
+                {
+                    this.X = auX;
+                    this.Y = auxY;
+                    this.state = false;
+                    this.col = 0;
+                    this.row = 0;
+                    this.interact = 0;
+                }
 
+            } 
+        }
 
         private void KeyMove()
         {
@@ -167,7 +183,12 @@ using System.Threading.Tasks;
                     this.explote = true;
                     
                     postMatrix = bmbs[i].posMatrix;
-                    this.state= EvaluateExplotion(bmbs[i].posFlame(),2);
+                    this.state = EvaluateExplotion(bmbs[i].posFlame(), 2);
+                    if (this.state)
+                    this.live--;
+                    
+                    
+                    
                     bmbs[i].Dispose();
                     bmbs.Remove(bmbs[i]);
                     
@@ -202,11 +223,15 @@ using System.Threading.Tasks;
             
             /// tener en cuenta que las predes tiene de dimension 32x32
             /// que las paredes se encuetran en un marge de 42 del eje x y 36 del eje y
-            System.Drawing.Rectangle horizontal = new System.Drawing.Rectangle(posFlame[1].X, posFlame[1].Y, 32*(2*level +1), 32);
-            System.Drawing.Rectangle vertical = new System.Drawing.Rectangle(posFlame[0].X, posFlame[0].Y, 32, 32*(2*level+1));
-            System.Drawing.Rectangle player = new System.Drawing.Rectangle(this.X, this.Y,this.Width, this.Height);
-            if (horizontal.IntersectsWith(player)) return true; ;
-            if (vertical.IntersectsWith(player)) return true;
+            
+                System.Drawing.Rectangle vertical = new System.Drawing.Rectangle(posFlame[0].X, posFlame[0].Y, 30, 30 * (2 * level + 1));
+                System.Drawing.Rectangle horizontal = new System.Drawing.Rectangle(posFlame[1].X, posFlame[1].Y, 30 * (2 * level + 1), 30);
+
+                System.Drawing.Rectangle player = new System.Drawing.Rectangle(this.X, this.Y, this.Width, this.Height);
+                if (horizontal.IntersectsWith(player)) return true;
+
+                if (vertical.IntersectsWith(player)) return true;
+            
 
             return false;
         }

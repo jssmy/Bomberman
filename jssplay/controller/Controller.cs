@@ -146,7 +146,7 @@ namespace jssplay.controller
                 {
                     skip++;
                     if (skip == 9) {
-                        one = new levels.first(imgPlayer);
+                        one = new levels.first(imgPlayer, this.opcion);
                         present.Dispose();
                         present = null;
                         this.typeKey = "playing"; 
