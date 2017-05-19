@@ -32,18 +32,18 @@ namespace jssplay.entity
         private int cs2;
         private int cm;
         private int clife;
+        public bool gameOver;
         //
         private System.Drawing.Bitmap d_wimg;
         private System.Drawing.Bitmap s_wimg;
-
         private Dinamic_wall dinamicw;
         private Static_wall staticw;
         Image backroud = null;
 
         public Boolean deleteP { set; get; }
         public Scenary(Bitmap d_w, Bitmap s_w, Bitmap bckimg, int level, int n_player) {
-            
-            
+
+            this.gameOver = false;
             walls_dinamics = new List<Dinamic_wall>();
             walls_statics = new List<Static_wall>();
 
@@ -87,7 +87,6 @@ namespace jssplay.entity
             }
         }
         
-
         public void create_map(){
             for (int i = 0; i < Map.GetLength(0); i++){
                 for (int j = 0; j < Map.GetLength(1); j++)
@@ -116,9 +115,6 @@ namespace jssplay.entity
 
         }
         
-
-
-
         private void runTime(System.Drawing.Graphics gr){
             this.s1++;
             //this.m++;

@@ -50,6 +50,7 @@
     <Compile Include="controller\Controller.cs" />
     <Compile Include="entity\Bomb.cs" />
     <Compile Include="entity\Dinamic_wall.cs" />
+    <Compile Include="entity\Enemies.cs" />
     <Compile Include="entity\Enemy.cs" />
     <Compile Include="entity\Figure.cs" />
     <Compile Include="entity\Flame.cs" />
@@ -293,6 +294,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\intro1.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\game_over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ghost.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

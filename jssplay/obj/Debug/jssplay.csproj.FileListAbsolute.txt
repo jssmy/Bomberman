@@ -1,7 +1,6 @@
 C:\Users\jssmy\documents\visual studio 2013\Projects\jssplay\jssplay\bin\Debug\jssplay.exe.config
 C:\Users\jssmy\documents\visual studio 2013\Projects\jssplay\jssplay\bin\Debug\jssplay.exe
 C:\Users\jssmy\documents\visual studio 2013\Projects\jssplay\jssplay\bin\Debug\jssplay.pdb
-C:\Users\jssmy\documents\visual studio 2013\Projects\jssplay\jssplay\bin\Debug\microsoft.directx.directsound.dll
 C:\Users\jssmy\documents\visual studio 2013\Projects\jssplay\jssplay\obj\Debug\jssplay.main.resources
 C:\Users\jssmy\documents\visual studio 2013\Projects\jssplay\jssplay\obj\Debug\jssplay.Properties.Resources.resources
 C:\Users\jssmy\documents\visual studio 2013\Projects\jssplay\jssplay\obj\Debug\jssplay.csproj.GenerateResource.Cache

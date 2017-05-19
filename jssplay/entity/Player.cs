@@ -70,14 +70,22 @@ using System.Threading.Tasks;
             if (this.col > 3) {
                 interact++;
                 this.col = 0;
-                if (interact > 3)
+                if (this.live > 0)
                 {
-                    this.X = auX;
-                    this.Y = auxY;
-                    this.state = false;
-                    this.col = 0;
-                    this.row = 0;
-                    this.interact = 0;
+
+                    if (interact > 3)
+                    {
+                        this.X = auX;
+                        this.Y = auxY;
+                        this.state = false;
+                        this.col = 0;
+                        this.row = 0;
+                        this.interact = 0;
+                        this.live--;
+                    }
+                    
+
+
                 }
 
             } 

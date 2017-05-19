@@ -28,8 +28,7 @@ namespace jssplay.entity
             this.Width = this.image.Width / 3;
             this.Height = this.image.Height;
         }
-
-        
+                
         public override void move(int col, int row)
         {
             
