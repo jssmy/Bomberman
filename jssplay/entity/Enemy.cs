@@ -67,8 +67,8 @@ namespace jssplay.entity
             ///
             this.col++;
             if (this.col >= 3) this.col = 0;
-            this.X += this.varX;
-            this.Y += this.varY;
+           this.X += this.varX;
+           this.Y += this.varY;
 
         }
 

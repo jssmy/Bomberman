@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,14 +13,16 @@ namespace jssplay.entity
         private int[,] Map;
         private Maps maps;
         private int level;
+        private List<System.Drawing.Point> rectric;
         public Enemies(int level) {
             this.level = level;
             maps = new Maps(level);
             this.Map = maps.Map;
             this.maps = null;
             enemies = new List<Enemy>();
+            this.rectric = new List<System.Drawing.Point>();
             this.Initialize();
-
+            
         }
 
         public void Draw(System.Drawing.Graphics gr)
@@ -27,7 +30,10 @@ namespace jssplay.entity
             for(int i=0; i <enemies.Count; i++){
                 //enemies[i].Draw(gr);
                 enemies[i].move(gr);
-               // enemies[i].Key= CheckRestriction(enemies[i].X, enemies[i].Y,enemies[i].Width, enemies[i].Height, enemies[i].Key);
+                System.Drawing.Pen pen = new System.Drawing.Pen(Color.Red, 2);
+                System.Drawing.Rectangle rec = new Rectangle(enemies[i].X,enemies[i].Y+enemies[i].Height/2+3,enemies[i].Width,enemies[i].Height/2);
+                gr.DrawRectangle(pen, rec);
+                enemies[i].Key = CheckRestriction(enemies[i].X, enemies[i].Y + enemies[i].Height / 2 + 3, enemies[i].Width, enemies[i].Height / 2, enemies[i].Key);
             }
         }
 
@@ -41,10 +47,15 @@ namespace jssplay.entity
                     int y = 32 * i + 36;
                     if (this.Map[i, j] == 5)
                     {
-                        Enemy e = new Enemy(x,y-25,4,3,Properties.Resources.ghost);
-                        e.Key = SetDir(i,j);
+                        Enemy e = new Enemy(x+7,y-22,4,3,Properties.Resources.ghost);
+                        e.Key = SetDir(((e.Y + e.Height / 2 + 3) - 36) / 32, ((e.X + e.Width / 2) - 42) / 32);
                         enemies.Add(e);
-
+                        
+                    }
+                    if (this.Map[i, j] == 1 || this.Map[i, j] == 2)
+                    {
+                        System.Drawing.Point p = new System.Drawing.Point(x,y);
+                        rectric.Add(p);
                     }
                 }
 
@@ -53,120 +64,63 @@ namespace jssplay.entity
         }
 
         public String CheckRestriction(int x, int y, int w, int h, String key) {
-            int i = ((y-36)+h/2)/32;
-            int j = ((x-42)+w/2)/32 ;
-            int v;
-            Random r = new Random();
-            switch (key)
+            for (int i = 0; i < rectric.Count; i++)
             {
-                case "Up":
-                    if (this.Map[i, j-1] == 1 || this.Map[i, j-1] == 2 || y>32)
-                    {
-                        ///se tien tres opciones para moverse, abajo, derecha o iquierda
-                        v = r.Next(1,3);
-                        switch (v)
-                        {
-                            case 1:
-                                if (this.Map[i, j + 1] != 1 || this.Map[i, j + 1] != 2) return "Down";
-                                break;
-                            case 2:
-                                if (this.Map[i - 1, j] != 1 || this.Map[i - 1, j] != 2) return "Left";
-                                break;
-                            case 3:
-                                if (this.Map[i, j + 1] != 1 || this.Map[i, j + 1] != 2) return "Right";
-                                break;
-                        }
-                        
-                    }
-                 break;
-                    
-                case "Down":
-                    if (this.Map[i, j+1] == 1 || this.Map[i, j+1] == 2 || y+w+w/2>272) {
-                        v = r.Next(1,3);
-                        switch(v){
-                            case 1:
-                                if (this.Map[i, j - 1] != 1 || this.Map[i, j - 1] != 2) return "Up";
-                                break;
-                            case 2:
-                                if (this.Map[i - 1, j] != 1 || this.Map[i - 1, j] != 2) return "Left";
-                                break;
-                            case 3:
-                                if (this.Map[i, j + 1] != 1 || this.Map[i, j + 1] != 2) return "Right";
-                                break;
-                        }
-                    }
-                 break;
-
-                case "Left":
-                        if (this.Map[i+1, j] == 1 || this.Map[i+1, j] == 2 || x<45) 
-                        {
-
-                            v = r.Next(1, 3);
-                            switch (v)
-                            {
-                                case 1:
-                                    if (this.Map[i, j + 1] != 1 || this.Map[i, j + 1] != 2) return "Down";
-                                    break;
-                                case 2:
-                                    if (this.Map[i, j - 1] != 1 || this.Map[i, j - 1] != 2) return "Up";
-                                    break;
-                                case 3:
-                                    if (this.Map[i, j + 1] != 1 || this.Map[i, j + 1] != 2) return "Right";
-                                    break;
-
-                            }
-                        }
-                    
-                break;
-                case "Right":
-                if (this.Map[i+1, j] == 1 || this.Map[i+1, j] == 2 || x+w+w/2>480)
+                System.Drawing.Point p = rectric[i];
+                System.Drawing.Rectangle rect = new System.Drawing.Rectangle(p.X,p.Y,32,32);
+                System.Drawing.Rectangle ene = new System.Drawing.Rectangle(x,y,w,h);
+                if (key.Equals("Right"))
                 {
-
-                    v = r.Next(1, 3);
-                    switch (v)
-                    {
-                        case 1:
-                            if (this.Map[i, j + 1] != 1 || this.Map[i, j + 1] != 2) return "Down";
-                            break;
-                        case 2:
-                            if (this.Map[i - 1, j] != 1 || this.Map[i - 1, j] != 2) return "Left";
-                            break;
-                        case 3:
-                            if (this.Map[i, j - 1] != 1 || this.Map[i, j - 1] != 2) return "Up";
-                            break;
-
-                    }
+                    //ene = new System.Drawing.Rectangle(x,,w+5,h/2);
+                    if(rect.IntersectsWith(ene))return "Left";
                 }
-                break;
-                 
-                
-            }            
+                if (key.Equals("Left"))
+                {
+                    //ene = new System.Drawing.Rectangle(x-5, y + h/2, w, h/2);
+                    if (rect.IntersectsWith(ene))return "Right";
+                }
+                if (key.Equals("Up"))
+                {
                     
+                    ///ene = new System.Drawing.Rectangle(x,y+h/2,w,h/2);
+                    if (rect.IntersectsWith(ene))return "Down";
+                }
+                if (key.Equals("Down"))
+                {
+                    //ene = new System.Drawing.Rectangle(x,y+h/2,w,h/2+5);
+                    if (rect.IntersectsWith(ene))return "Up";
+                }
+                 
+            }
 
-            
-
-            return key;
+                return key;
         }
 
 
         private String SetDir(int i, int j)
         {
-            Random r =  new Random();
-            int v = 0;
-            if (this.Map[i + 1, j] == 1 || this.Map[i + 1, j] == 2 || this.Map[i - 1, j] == 1 || this.Map[i - 1, j] == 2)
+            String d = "";
+            //evelua derecha
+            if (Map[i, j+1] != 1 || Map[i,j+1]!=2)
             {
-                v = r.Next(0,1);
+                d= "Right";
             }
-            if (this.Map[i, j+1] == 1 || this.Map[i, j+1] == 2 || this.Map[i, j-1] == 1 || this.Map[i, j-1] == 2)
+            //evalua izquierda
+            if (Map[i, j - 1] != 1 || Map[i, j-1] != 2)
             {
-                v = r.Next(2, 3);
+                d= "Left";
             }
-            if (v == 0) return "Up";
-            if (v == 1) return "Down";
-            if (v == 2) return "Left";
-            if (v == 3) return "Right";
-
-            return "-";
+            //evalua abajo
+            if (Map[i+1, j ] != 1 || Map[i+1,j ] != 2)
+            {
+                d= "Down";
+            }
+            //evalua arriba
+            if (Map[i-1,j] != 1 || Map[i-1, j] != 2)
+            {
+                d= "Up";
+            }
+            return d;
 
         }
 

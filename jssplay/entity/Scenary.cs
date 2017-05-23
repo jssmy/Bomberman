@@ -156,6 +156,11 @@ namespace jssplay.entity
             
             for (int i = 0; i < walls.Count; i++) {
                     walls[i].Draw(gr);
+                ///
+                    System.Drawing.Pen pen = new Pen(Color.Black,2);
+                    System.Drawing.Rectangle rec = new Rectangle(walls[i].X, walls[i].Y, walls[i].Width, walls[i].Height);
+                    gr.DrawRectangle(pen,rec);
+                //
                     if (walls[i].GetType().Equals(typeof(Dinamic_wall))) {
                         Dinamic_wall d = (Dinamic_wall)walls[i];
                         if (d.state) d.Die();
