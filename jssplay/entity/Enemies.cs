@@ -30,9 +30,9 @@ namespace jssplay.entity
             for(int i=0; i <enemies.Count; i++){
                 //enemies[i].Draw(gr);
                 enemies[i].move(gr);
-                System.Drawing.Pen pen = new System.Drawing.Pen(Color.Red, 2);
-                System.Drawing.Rectangle rec = new Rectangle(enemies[i].X,enemies[i].Y+enemies[i].Height/2+3,enemies[i].Width,enemies[i].Height/2);
-                gr.DrawRectangle(pen, rec);
+                //System.Drawing.Pen pen = new System.Drawing.Pen(Color.Red, 2);
+                //System.Drawing.Rectangle rec = new Rectangle(enemies[i].X,enemies[i].Y+enemies[i].Height/2+3,enemies[i].Width,enemies[i].Height/2);
+                //gr.DrawRectangle(pen, rec);
                 enemies[i].Key = CheckRestriction(enemies[i].X, enemies[i].Y + enemies[i].Height / 2 + 3, enemies[i].Width, enemies[i].Height / 2, enemies[i].Key);
             }
         }
@@ -43,11 +43,11 @@ namespace jssplay.entity
             {
                 for (int j = 0; j< this.Map.GetLength(1); j++)
                 {
-                    int x = 32 * j + 42;
+                    int x = 33 * j + 42;
                     int y = 32 * i + 36;
                     if (this.Map[i, j] == 5)
                     {
-                        Enemy e = new Enemy(x+7,y-22,4,3,Properties.Resources.ghost);
+                        Enemy e = new Enemy(x+3,y-22,4,3,Properties.Resources.ghost);
                         e.Key = SetDir(((e.Y + e.Height / 2 + 3) - 36) / 32, ((e.X + e.Width / 2) - 42) / 32);
                         enemies.Add(e);
                         
@@ -69,26 +69,26 @@ namespace jssplay.entity
                 System.Drawing.Point p = rectric[i];
                 System.Drawing.Rectangle rect = new System.Drawing.Rectangle(p.X,p.Y,32,32);
                 System.Drawing.Rectangle ene = new System.Drawing.Rectangle(x,y,w,h);
-                if (key.Equals("Right"))
+                if (key.Equals("Right") )
                 {
-                    //ene = new System.Drawing.Rectangle(x,,w+5,h/2);
-                    if(rect.IntersectsWith(ene))return "Left";
+                    ene = new System.Drawing.Rectangle(x,y,w+5,h);
+                    if (rect.IntersectsWith(ene) || x + w + 5 > 480) return "Left";
                 }
-                if (key.Equals("Left"))
+                if (key.Equals("Left")  )
                 {
-                    //ene = new System.Drawing.Rectangle(x-5, y + h/2, w, h/2);
-                    if (rect.IntersectsWith(ene))return "Right";
+                    ene = new System.Drawing.Rectangle(x-5, y, w,h);
+                    if (rect.IntersectsWith(ene) || x - 5 < 42) return "Right";
                 }
                 if (key.Equals("Up"))
                 {
                     
-                    ///ene = new System.Drawing.Rectangle(x,y+h/2,w,h/2);
-                    if (rect.IntersectsWith(ene))return "Down";
+                    ene = new System.Drawing.Rectangle(x,y-5,w,h);
+                    if (rect.IntersectsWith(ene) || y - 5 < 36) return "Down";
                 }
                 if (key.Equals("Down"))
                 {
-                    //ene = new System.Drawing.Rectangle(x,y+h/2,w,h/2+5);
-                    if (rect.IntersectsWith(ene))return "Up";
+                    ene = new System.Drawing.Rectangle(x,y,w,h+5);
+                    if (rect.IntersectsWith(ene) || y + h + 5 > 272) return "Up";
                 }
                  
             }
@@ -101,22 +101,22 @@ namespace jssplay.entity
         {
             String d = "";
             //evelua derecha
-            if (Map[i, j+1] != 1 || Map[i,j+1]!=2)
+            if (Map[i, j+1] != 1 && Map[i,j+1]!=2)
             {
                 d= "Right";
             }
             //evalua izquierda
-            if (Map[i, j - 1] != 1 || Map[i, j-1] != 2)
+            if (Map[i, j - 1] != 1 && Map[i, j-1] != 2)
             {
                 d= "Left";
             }
             //evalua abajo
-            if (Map[i+1, j ] != 1 || Map[i+1,j ] != 2)
+            if (Map[i+1, j ] != 1 && Map[i+1,j ] != 2)
             {
                 d= "Down";
             }
             //evalua arriba
-            if (Map[i-1,j] != 1 || Map[i-1, j] != 2)
+            if (Map[i-1,j] != 1 && Map[i-1, j] != 2)
             {
                 d= "Up";
             }

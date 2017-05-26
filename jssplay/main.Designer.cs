@@ -42,6 +42,7 @@
             this.screen.Size = new System.Drawing.Size(475, 275);
             this.screen.TabIndex = 0;
             this.screen.TabStop = false;
+            this.screen.Click += new System.EventHandler(this.screen_Click);
             // 
             // time
             // 

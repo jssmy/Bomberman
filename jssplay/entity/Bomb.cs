@@ -66,7 +66,7 @@ namespace jssplay.entity
         public void Died(System.Drawing.Graphics gr)
         {
             flame.Draw(gr);
-            posMatrix= flame.posMatrixx();
+            ///posMatrix= flame.posMatrixx();
         }
         public List<System.Drawing.Point> posFlame()
         {

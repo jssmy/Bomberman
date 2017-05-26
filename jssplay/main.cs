@@ -72,5 +72,10 @@ namespace jssplay
             con.Key = "-";
             if (e.KeyData.ToString().Equals("Return")) if (con.opcion == 2) this.Close();
         }
+
+        private void screen_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

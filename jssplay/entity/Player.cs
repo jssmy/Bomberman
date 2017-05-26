@@ -26,7 +26,8 @@ using System.Threading.Tasks;
         private int auX;
         private int auxY;
         private int interact;
-        public List<int> postMatrix { get; set; }
+        //public List<int> postMatrix { get; set; }
+        public List<System.Drawing.Point> posFlame;
 
         public Player(int x, int y, System.Drawing.Bitmap img, int [,] map) {
             this.X =auX =x;
@@ -38,21 +39,19 @@ using System.Threading.Tasks;
             keyPress = "-";
             bmbs = new List<Bomb>();
             imgBomb = new System.Drawing.Bitmap(Properties.Resources.B1);
+            posFlame = new List<System.Drawing.Point>();
             this.map = map;
             this.psValue = 2;
-            postMatrix = new List<int>();
+            //postMatrix = new List<int>();
             //xplote = false;
         }
-
         public override void Size()
         {
             this.Width = this.image.Width / 4;
             this.Height = this.image.Height / 5;
 
         }
-        
         public override void move(int b, int a){}
-        
         public void move(String keypss, System.Drawing.Graphics gr)
         {
             Draw(gr);
@@ -62,7 +61,6 @@ using System.Threading.Tasks;
             this.keyPress = keypss;
             
         }
-
         public void Died() {
             this.row = 4;
             this.col++;
@@ -90,7 +88,6 @@ using System.Threading.Tasks;
 
             } 
         }
-
         private void KeyMove()
         {
 
@@ -165,33 +162,29 @@ using System.Threading.Tasks;
                 this.col = 0;
             }
 
-
-            
-
-
-
             this.X += varX;
             this.Y += varY;
 
 
         }
-
         private void makeBomb(int x, int y)
         {
+            if (bmbs.Count < 1) {
+                bmb = new Bomb(x, y, 3, this.map, imgBomb);
 
-            bmb = new Bomb(x, y,3,this.map,imgBomb);
-            bmbs.Add(bmb);
+                bmbs.Add(bmb);
+            }
+            
         }
-
         private void DrawBomb(System.Drawing.Graphics gr) {
             for (int i = 0; i < bmbs.Count; i++)
             {
                 bmbs[i].move(gr);
                 if (bmbs[i].xplote) {
                     this.explote = true;
-                    
-                    postMatrix = bmbs[i].posMatrix;
-                    this.state = EvaluateExplotion(bmbs[i].posFlame(), 2);
+                    posFlame = bmbs[i].posFlame();
+                    //postMatrix = bmbs[i].posMatrix;
+                    this.state = EvaluateExplotion(bmbs[i].posFlame(),gr);
                     if (this.state)
                     this.live--;
                     
@@ -204,7 +197,6 @@ using System.Threading.Tasks;
             }
         
         }
-
         /// <summary>
         ///            ------
         ///            |_x_|
@@ -226,14 +218,19 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="postMaxtrix"></param>
         /// <param name="level"></param>
-        public bool EvaluateExplotion(List<System.Drawing.Point> posFlame, int level)
+        public bool EvaluateExplotion(List<System.Drawing.Point> posFlame, System.Drawing.Graphics gr)
         {
             
             /// tener en cuenta que las predes tiene de dimension 32x32
             /// que las paredes se encuetran en un marge de 42 del eje x y 36 del eje y
+
             
-                System.Drawing.Rectangle vertical = new System.Drawing.Rectangle(posFlame[0].X, posFlame[0].Y, 30, 30 * (2 * level + 1));
-                System.Drawing.Rectangle horizontal = new System.Drawing.Rectangle(posFlame[1].X, posFlame[1].Y, 30 * (2 * level + 1), 30);
+                System.Drawing.Rectangle vertical = new System.Drawing.Rectangle(posFlame[0].X+5,posFlame[0].Y,30-5,posFlame[1].Y - posFlame[0].Y);
+               System.Drawing.Rectangle horizontal = new System.Drawing.Rectangle(posFlame[2].X, posFlame[2].Y+5,posFlame[3].X-posFlame[2].X,30-5);
+               ///System.Drawing.Pen p = new System.Drawing.Pen(System.Drawing.Color.Blue, 3);
+                //gr.DrawRectangle(p,vertical);
+                //gr.DrawRectangle(p,horizontal);
+
 
                 System.Drawing.Rectangle player = new System.Drawing.Rectangle(this.X, this.Y, this.Width, this.Height);
                 if (horizontal.IntersectsWith(player)) return true;

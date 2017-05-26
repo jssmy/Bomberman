@@ -149,62 +149,63 @@ namespace jssplay.entity
 
         public void Draw(System.Drawing.Graphics gr)
         {
-
+            //bool st = false;
             backroud.Draw(gr);
             runTime(gr);
             DrawLive(gr);
-            
-            for (int i = 0; i < walls.Count; i++) {
-                    walls[i].Draw(gr);
-                ///
-                    System.Drawing.Pen pen = new Pen(Color.Black,2);
-                    System.Drawing.Rectangle rec = new Rectangle(walls[i].X, walls[i].Y, walls[i].Width, walls[i].Height);
-                    gr.DrawRectangle(pen,rec);
-                //
-                    if (walls[i].GetType().Equals(typeof(Dinamic_wall))) {
-                        Dinamic_wall d = (Dinamic_wall)walls[i];
-                        if (d.state) d.Die();
-                    }
-                                     
-            }
+            int size = walls.Count;
 
-            
-        }
-
-        public void DeleteItem(List<int> posMatrix)
-        {
-            int count = 0;
-            int a = 0;
-            int b = 0;
-            dinamicw = null;
-            
-            if (posMatrix != null)
+            for (int i = 0; i < size; i++)
             {
-                for (int i = 0; i < posMatrix.Count; i++)
+                Figure w = walls[i];
+                w.Draw(gr);
+                if (w.GetType().Equals(typeof(Dinamic_wall)))
                 {
-                    count++;
-                    if (count == 1)
-                    {
-                        a = posMatrix[i];
-                    }
-                    if (count == 2)
-                    {
-                        b = posMatrix[i];
-                        dinamicw = (entity.Dinamic_wall)walls.Find(dw=>dw.i==a && dw.j==b );
-                        if (dinamicw != null)
-                        {
-                            dinamicw.state = true;
-                           this.Map[a,b]=0;
-                           //this.deleteP = true;
-                        }
+                    Dinamic_wall d = (Dinamic_wall)w;
+                    bool st = false;
+                    if (d.state) st = d.Die();
 
-
-                        count = 0;
+                    if (st)
+                    {
+                        walls.Remove(d);
+                        i--;
+                        size--;
                     }
 
                 }
             }
-            //posMatrix = null;
+            
+        }
+
+        public void DeleteItem(List<System.Drawing.Point>  posFlame, System.Drawing.Graphics gr)
+        {
+            
+            System.Drawing.Rectangle vertical = new System.Drawing.Rectangle(posFlame[0].X+5, posFlame[0].Y, 30-5, posFlame[1].Y - posFlame[0].Y);
+            System.Drawing.Rectangle horizontal = new System.Drawing.Rectangle(posFlame[2].X, posFlame[2].Y+5, posFlame[3].X - posFlame[2].X, 30-5);
+            System.Drawing.Pen p = new System.Drawing.Pen(System.Drawing.Color.Blue, 3);
+            //gr.DrawRectangle(p,vertical);
+            //gr.DrawRectangle(p,horizontal);
+            
+            foreach( Figure d in walls){
+                
+                if (d.GetType().Equals(typeof(Dinamic_wall)))
+                {
+                    
+                    Dinamic_wall dn = (Dinamic_wall)d;
+                    System.Drawing.Rectangle dnc = new System.Drawing.Rectangle(dn.X, dn.Y, dn.Width, dn.Height);
+                    if (horizontal.IntersectsWith(dnc) || vertical.IntersectsWith(dnc))
+                    {
+                       // gr.DrawRectangle(p,dnc);
+                        dn.state = true;
+                        this.Map[dn.i, dn.j] = 0;
+                        //return true;
+                    } 
+                }
+            }
+
+            //return false;
+
+
         }
 
         public void DrawLive(System.Drawing.Graphics gr) {

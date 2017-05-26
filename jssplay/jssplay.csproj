@@ -55,6 +55,7 @@
     <Compile Include="entity\Figure.cs" />
     <Compile Include="entity\Flame.cs" />
     <Compile Include="entity\Image.cs" />
+    <Compile Include="entity\Item.cs" />
     <Compile Include="entity\Maps.cs" />
     <Compile Include="entity\Player.cs" />
     <Compile Include="entity\Presentation.cs" />

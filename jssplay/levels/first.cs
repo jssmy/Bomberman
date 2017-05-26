@@ -36,7 +36,7 @@ namespace jssplay.levels
             enemies.Draw(gr);
             if (player.explote) {
               
-                scenary.DeleteItem(player.postMatrix);
+                scenary.DeleteItem(player.posFlame,gr);
                 
                 player.map = scenary.Map;
                 player.explote = false;
