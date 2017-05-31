@@ -6,4 +6,3 @@ C:\Users\jssmy\Documents\Visual Studio 2013\Projects\jssplay\jssplay\obj\Debug\j
 C:\Users\jssmy\Documents\Visual Studio 2013\Projects\jssplay\jssplay\obj\Debug\jssplay.csproj.GenerateResource.Cache
 C:\Users\jssmy\Documents\Visual Studio 2013\Projects\jssplay\jssplay\obj\Debug\jssplay.exe
 C:\Users\jssmy\Documents\Visual Studio 2013\Projects\jssplay\jssplay\obj\Debug\jssplay.pdb
-C:\Users\jssmy\documents\visual studio 2013\Projects\jssplay\jssplay\obj\Debug\jssplay.csprojResolveAssemblyReference.cache

@@ -167,6 +167,16 @@ namespace jssplay.entity
                 derechaF_i = ((DerechaFinal.Y - 36) + DerechaFinal.Height / 2) / 32;
                 derechaF_j = ((DerechaFinal.X - 42) + DerechaFinal.Width / 2) / 33;
             }
+            if (derechaF_j > 12)
+            {
+                
+                DerechaFinal.X = Derecha.X;
+                DerechaFinal.Y = Derecha.Y;
+                Derecha.X = center.X;/// mueve la llama al centro
+                Derecha.Y = center.Y;
+                derechaF_i = ((DerechaFinal.Y - 36) + DerechaFinal.Height / 2) / 32;
+                derechaF_j = ((DerechaFinal.X - 42) + DerechaFinal.Width / 2) / 33;
+            }
             if (Matrix[derecha_i, derecha_j] == 2)
             {
                 DerechaFinal.X = Derecha.X;
@@ -201,7 +211,7 @@ namespace jssplay.entity
             int izquierdaF_i = ((IzquierdaFinal.Y - 36) + IzquierdaFinal.Height / 2) / 32;
             int izquierdaF_j = ((IzquierdaFinal.X - 42) + IzquierdaFinal.Width / 2) / 33;
 
-            if (Matrix[izquierda_i, izquierda_j] == 1 || Izquierda.X < 45)
+            if (Matrix[izquierda_i, izquierda_j] == 1 || Izquierda.X < 42)
             {
                 Izquierda.X = center.X;
                 Izquierda.Y = center.Y;
@@ -211,7 +221,7 @@ namespace jssplay.entity
                 izquierdaF_j = ((IzquierdaFinal.X - 42) + IzquierdaFinal.Width / 2) / 33;
 
             }
-            if (Matrix[izquierdaF_i, izquierdaF_j] == 1)
+            if (Matrix[izquierdaF_i, izquierdaF_j] == 1 || IzquierdaFinal.X<42)
             {
                 IzquierdaFinal.X =Izquierda.X;
                 IzquierdaFinal.Y =Izquierda.Y;
@@ -303,6 +313,17 @@ namespace jssplay.entity
                 abajoF_i = ((AbajoFinal.Y - 36) + AbajoFinal.Height / 2) / 32;
                 abajoF_j = ((AbajoFinal.X - 42) + AbajoFinal.Width / 2) / 33;
             }
+            if (Matrix[abajo_i, abajo_j] == 2)
+            {
+                AbajoFinal.X = Abajo.X;
+                AbajoFinal.Y = Abajo.Y;
+                abajoF_i = ((AbajoFinal.Y - 36) + AbajoFinal.Height / 2) / 32;
+                abajoF_j = ((AbajoFinal.X - 42) + AbajoFinal.Width / 2) / 33;
+                Abajo.X = center.X;
+                Abajo.Y = center.Y;
+
+
+            }
             if (Matrix[abajoF_i, abajoF_j] == 1)
             {
                 AbajoFinal.X = Abajo.X;
@@ -312,17 +333,7 @@ namespace jssplay.entity
                 abajoF_i = ((AbajoFinal.Y - 36) + AbajoFinal.Height / 2) / 32;
                 abajoF_j = ((AbajoFinal.X - 42) + AbajoFinal.Width / 2) / 33;
             }
-            if (Matrix[abajo_i, abajo_j] == 2)
-            {
-                AbajoFinal.X = Abajo.X;
-                AbajoFinal.Y = Abajo.Y;
-                abajoF_i = ((AbajoFinal.Y - 36) + AbajoFinal.Height / 2) / 32;
-                abajoF_j = ((AbajoFinal.X - 42) + AbajoFinal.Width / 2) / 33;
-                Abajo.X = center.X;
-                Abajo.Y = center.Y;
-               
-
-            }
+            
            
         }
 

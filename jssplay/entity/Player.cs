@@ -22,7 +22,7 @@ using System.Threading.Tasks;
         private int posX = 0;
         private int posY = 0;
         private int psValue; /// es la variable que restringe pasar sobre la pared
-        public bool state;
+        public bool state{get;set;}
         private int auX;
         private int auxY;
         private int interact;
@@ -183,8 +183,12 @@ using System.Threading.Tasks;
                 if (bmbs[i].xplote) {
                     this.explote = true;
                     posFlame = bmbs[i].posFlame();
-                    //postMatrix = bmbs[i].posMatrix;
-                    this.state = EvaluateExplotion(bmbs[i].posFlame(),gr);
+                    //System.Drawing.Rectangle vertical = new System.Drawing.Rectangle(posFlame[0].X+5,posFlame[0].Y,30-5,posFlame[1].Y - posFlame[0].Y);
+                    ///System.Drawing.Rectangle horizontal = new System.Drawing.Rectangle(posFlame[2].X, posFlame[2].Y+5,posFlame[3].X-posFlame[2].X,30-5);
+
+                    this.state = EvaluateExplotion(posFlame[0].X + 5, posFlame[0].Y, 30 - 5, posFlame[1].Y - posFlame[0].Y);
+                    if (!this.state) this.state = EvaluateExplotion(posFlame[2].X, posFlame[2].Y + 5, posFlame[3].X - posFlame[2].X, 30 - 5);
+                    
                     if (this.state)
                     this.live--;
                     
@@ -218,24 +222,23 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="postMaxtrix"></param>
         /// <param name="level"></param>
-        public bool EvaluateExplotion(List<System.Drawing.Point> posFlame, System.Drawing.Graphics gr)
+        public bool EvaluateExplotion(int x, int y, int w, int h)
         {
             
             /// tener en cuenta que las predes tiene de dimension 32x32
             /// que las paredes se encuetran en un marge de 42 del eje x y 36 del eje y
 
             
-                System.Drawing.Rectangle vertical = new System.Drawing.Rectangle(posFlame[0].X+5,posFlame[0].Y,30-5,posFlame[1].Y - posFlame[0].Y);
-               System.Drawing.Rectangle horizontal = new System.Drawing.Rectangle(posFlame[2].X, posFlame[2].Y+5,posFlame[3].X-posFlame[2].X,30-5);
+                //System.Drawing.Rectangle vertical = new System.Drawing.Rectangle(posFlame[0].X+5,posFlame[0].Y,30-5,posFlame[1].Y - posFlame[0].Y);
+               ///System.Drawing.Rectangle horizontal = new System.Drawing.Rectangle(posFlame[2].X, posFlame[2].Y+5,posFlame[3].X-posFlame[2].X,30-5);
                ///System.Drawing.Pen p = new System.Drawing.Pen(System.Drawing.Color.Blue, 3);
-                //gr.DrawRectangle(p,vertical);
-                //gr.DrawRectangle(p,horizontal);
 
+                System.Drawing.Rectangle rect = new System.Drawing.Rectangle(x,y,w,h);
 
-                System.Drawing.Rectangle player = new System.Drawing.Rectangle(this.X, this.Y, this.Width, this.Height);
-                if (horizontal.IntersectsWith(player)) return true;
+                System.Drawing.Rectangle player = new System.Drawing.Rectangle(this.X, this.Y+h/2, this.Width, this.Height/2);
+                if (rect.IntersectsWith(player)) return true;
 
-                if (vertical.IntersectsWith(player)) return true;
+                
             
 
             return false;

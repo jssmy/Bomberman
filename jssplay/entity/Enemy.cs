@@ -8,12 +8,13 @@ namespace jssplay.entity
 {
     public class Enemy:Sprite
     {
+        private int time;
         public String Key;
         public int varX { get; set; }
         public int varY { get; set; }
         public bool state { get; set; }
         private int div_row;
-        private int div_col;
+        public int div_col;
         public Enemy(int x, int y,int div_row, int div_col,System.Drawing.Bitmap bmp)
         {
             this.X = x;
@@ -34,7 +35,7 @@ namespace jssplay.entity
             throw new NotImplementedException();
         }
 
-        private void KeyMove()
+        public void KeyMove()
         {
             switch (Key)
             {
@@ -72,18 +73,23 @@ namespace jssplay.entity
 
         }
 
-        public void move(System.Drawing.Graphics gr) {
-            this.Draw(gr);
-            this.KeyMove();
-           
-        
-        }
-        
 
-        private void Died()
+
+        public bool Died()
         {
+            this.row = 4;
+            this.col++;
+            if (this.col > 1)
+            {
+                this.col = 0;
+                time++;
+            }
+            if (time == 3) return true;
 
+            return false;
         }
+
+        
 
 
 
