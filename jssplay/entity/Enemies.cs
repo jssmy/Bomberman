@@ -154,25 +154,37 @@ namespace jssplay.entity
         private String SetDir(int i, int j)
         {
             String d = "";
-            //evelua derecha
-            if (Map[i, j+1] != 1 && Map[i,j+1]!=2)
+            if (j < 6)
             {
-                d= "Right";
+                //evelua derecha
+                if (Map[i, j + 1] != 1 && Map[i, j + 1] != 2)
+                {
+                    d = "Right";
+                }
             }
-            //evalua izquierda
-            if (Map[i, j - 1] != 1 && Map[i, j-1] != 2)
+            if (j > 0)
             {
-                d= "Left";
+                //evalua izquierda
+                if (Map[i, j - 1] != 1 && Map[i, j - 1] != 2)
+                {
+                    d = "Left";
+                }
             }
-            //evalua abajo
-            if (Map[i+1, j ] != 1 && Map[i+1,j ] != 2)
+            if (i < 6)
             {
-                d= "Down";
+                //evalua abajo
+                if (Map[i + 1, j] != 1 && Map[i + 1, j] != 2)
+                {
+                    d = "Down";
+                }
             }
-            //evalua arriba
-            if (Map[i-1,j] != 1 && Map[i-1, j] != 2)
+            if (i > 0)
             {
-                d= "Up";
+                //evalua arriba
+                if (Map[i - 1, j] != 1 && Map[i - 1, j] != 2)
+                {
+                    d = "Up";
+                }
             }
             return d;
 
