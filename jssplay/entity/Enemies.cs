@@ -207,27 +207,26 @@ namespace jssplay.entity
             /// tener en cuenta que las predes tiene de dimension 32x32
             /// que las paredes se encuetran en un marge de 42 del eje x y 36 del eje y
 
-
-            System.Drawing.Rectangle vertical = new System.Drawing.Rectangle(posFlame[0].X+5,posFlame[0].Y,30-5,posFlame[1].Y - posFlame[0].Y);
-            System.Drawing.Rectangle horizontal = new System.Drawing.Rectangle(posFlame[2].X, posFlame[2].Y+5,posFlame[3].X-posFlame[2].X,30-5);
-            //System.Drawing.Pen p = new System.Drawing.Pen(System.Drawing.Color.Blue, 3);
-            foreach (Enemy e in enemies) {
-                //enemies[i].Key = CheckRestriction(enemies[i].X, enemies[i].Y + enemies[i].Height / 2 + 3, enemies[i].Width, enemies[i].Height / 2, enemies[i].Key);
-                System.Drawing.Rectangle ene = new System.Drawing.Rectangle(e.X,e.Y+e.Height/2,e.Width,e.Height/2);
-                if (vertical.IntersectsWith(ene) || horizontal.IntersectsWith(ene))
+            if (posFlame.Count > 0)
+            {
+                System.Drawing.Rectangle vertical = new System.Drawing.Rectangle(posFlame[0].X + 5, posFlame[0].Y, 30 - 5, posFlame[1].Y - posFlame[0].Y);
+                System.Drawing.Rectangle horizontal = new System.Drawing.Rectangle(posFlame[2].X, posFlame[2].Y + 5, posFlame[3].X - posFlame[2].X, 30 - 5);
+                //System.Drawing.Pen p = new System.Drawing.Pen(System.Drawing.Color.Blue, 3);
+                foreach (Enemy e in enemies)
                 {
-                    //e = new Enemy(e.X,e.Y,5,2,Properties.Resources.ghostv2);
-                    e.div_col = 2;
-                   /// e.X = e.X - 5;
-                    e.Size();
-                    e.state = true;
-                    
+                    //enemies[i].Key = CheckRestriction(enemies[i].X, enemies[i].Y + enemies[i].Height / 2 + 3, enemies[i].Width, enemies[i].Height / 2, enemies[i].Key);
+                    System.Drawing.Rectangle ene = new System.Drawing.Rectangle(e.X, e.Y + e.Height / 2, e.Width, e.Height / 2);
+                    if (vertical.IntersectsWith(ene) || horizontal.IntersectsWith(ene))
+                    {
+                        //e = new Enemy(e.X,e.Y,5,2,Properties.Resources.ghostv2);
+                        e.div_col = 2;
+                        /// e.X = e.X - 5;
+                        e.Size();
+                        e.state = true;
+
+                    }
                 }
             }
-
-            
-            
-            
         }
 
     }

@@ -26,10 +26,12 @@ using System.Threading.Tasks;
         private int auX;
         private int auxY;
         private int interact;
+        public List<System.Drawing.Point> posBom;
         //public List<int> postMatrix { get; set; }
         public List<System.Drawing.Point> posFlame;
 
         public Player(int x, int y, System.Drawing.Bitmap img, int [,] map) {
+            this.posBom = new List<System.Drawing.Point>();
             this.X =auX =x;
             this.Y=auxY = y;
             this.image = img;
@@ -171,7 +173,7 @@ using System.Threading.Tasks;
         {
             if (bmbs.Count < 1) {
                 bmb = new Bomb(x, y, 3, this.map, imgBomb);
-
+                System.Drawing.Point p = new System.Drawing.Point(bmb.X,bmb.Y);
                 bmbs.Add(bmb);
             }
             

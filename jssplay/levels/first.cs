@@ -35,18 +35,12 @@ namespace jssplay.levels
             player.move(Key, gr);
             enemies.Draw(gr, player.X, player.Y,player.Width, player.Height);
             player.state = enemies.player_state;
-            if (player.state)
-            {
-                scenary.life = player.live;
-                if (player.live <= 0)
-                {
-                    // this.gameOver = true;
-                    scenary.gameOver = false;
-                }
-            }
+            //enemies.EvaluateExplotion(player.posBom);
+            enemies.player_state = false;
+            
             if (player.explote) {
               
-                scenary.DeleteItem(player.posFlame,gr);
+                scenary.DeleteWall(player.posFlame,gr);
                 
                 player.map = scenary.Map;
                 enemies.Map = scenary.Map;
@@ -56,11 +50,19 @@ namespace jssplay.levels
                 player.explote = false;
                 
             }
+            if (player.state)
+            {
+                scenary.life = player.live;
+                if (player.live <= 0)
+                {
+                    // this.gameOver = true;
+                    scenary.gameOver = false;
+                }
+            }
             
 
 
         }
-
 
     }
 }

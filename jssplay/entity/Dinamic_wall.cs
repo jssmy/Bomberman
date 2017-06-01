@@ -8,7 +8,7 @@ namespace jssplay.entity
 {
     public class Dinamic_wall:Sprite
     {
-        public Item item;
+       // public Item item;
         public bool state;
         //public int i;
         //public int j;
@@ -22,22 +22,9 @@ namespace jssplay.entity
             this.Size();
             this.i = i;
             this.j = j;
-            MakeItem();
+            
         }
 
-        public void MakeItem() {
-            Random r = new Random();
-            int con= r.Next(0,1);
-            if(con==1) /// la pared tiene un item
-             {
-                r =  new Random();
-                int t= r.Next(1,4);
-                 this.item = new Item(this.X, this.Y,t);    
-            }
-
-        
-        }
-        
         public override void Size()
         {
             this.Width = this.image.Width / 3;

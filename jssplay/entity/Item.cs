@@ -9,12 +9,12 @@ namespace jssplay.entity
     public class Item: Sprite
     {
         public int type;
-        public Item(int x, int y, int type) { 
+        public Item(int x, int y) { 
         //tipos (llama, zapatos, trapasa pared, bomba)
             this.X = x;
             this.Y = y;
-            this.type = type;
-            SetType(type);
+           // this.type = type;
+            SetType();
             this.Size();
         }
 
@@ -27,8 +27,15 @@ namespace jssplay.entity
             this.Width = this.image.Width;
             this.Height = this.image.Height / 4;
         }
+        public void move()
+        {
+                this.row++;
+                if(this.row>1) this.row =0;
+        }
+        private void SetType() {
 
-        private void SetType(int type) {
+            Random r = new Random();
+            type = r.Next(1,4);
             if (type == 1)
             {
                 /// tipo 1 es llama
@@ -48,7 +55,6 @@ namespace jssplay.entity
                 this.image = new System.Drawing.Bitmap(Properties.Resources.Zapato);
             }
         }
-
         public void Died() {
             //this.row = 2;
         

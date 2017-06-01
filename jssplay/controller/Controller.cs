@@ -19,8 +19,6 @@ namespace jssplay.controller
         System.Drawing.Bitmap bmp;
         levels.first one = null;
         public Controller() {
-            
-
             bmp = new System.Drawing.Bitmap(Properties.Resources.main_back);
             background = new entity.Image(0,0,bmp);
             bmp = null;

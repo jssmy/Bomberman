@@ -8,6 +8,7 @@ namespace jssplay.entity
 {
     public class Scenary
     {
+        private List<Item> items = null;
         private List<Dinamic_wall> walls_dinamics = null;
         private List<Static_wall>  walls_statics = null;
         private List<Figure> walls = new List<Figure>();
@@ -65,6 +66,7 @@ namespace jssplay.entity
             create_map();
             deleteP = false;
             LivePlayer(n_player);
+            items = new List<Item>();
 
         }
 
@@ -153,8 +155,13 @@ namespace jssplay.entity
             backroud.Draw(gr);
             runTime(gr);
             DrawLive(gr);
+            DrawWalls(gr);
+            DrawItem(gr);
+                       
+        }
+        public void DrawWalls(System.Drawing.Graphics gr)
+        {
             int size = walls.Count;
-
             for (int i = 0; i < size; i++)
             {
                 Figure w = walls[i];
@@ -167,21 +174,27 @@ namespace jssplay.entity
 
                     if (st)
                     {
+                        Random r = new Random();
+                        int make = r.Next(0, 3);
+                        if (make == 2) {
+                            Item it = new Item(d.X, d.Y);
+                            items.Add(it);
+                            
+                        }
                         walls.Remove(d);
                         i--;
                         size--;
+                        
                     }
 
                 }
             }
-            
         }
-
-        public void DeleteItem(List<System.Drawing.Point>  posFlame, System.Drawing.Graphics gr)
+        public void DeleteWall(List<System.Drawing.Point>  posFlame, System.Drawing.Graphics gr)
         {
             
-            System.Drawing.Rectangle vertical = new System.Drawing.Rectangle(posFlame[0].X+5, posFlame[0].Y, 30-5, posFlame[1].Y - posFlame[0].Y);
-            System.Drawing.Rectangle horizontal = new System.Drawing.Rectangle(posFlame[2].X, posFlame[2].Y+5, posFlame[3].X - posFlame[2].X, 30-5);
+            System.Drawing.Rectangle vertical = new System.Drawing.Rectangle(posFlame[0].X+5, posFlame[0].Y+3, 30-5, (posFlame[1].Y - posFlame[0].Y)-3);
+            System.Drawing.Rectangle horizontal = new System.Drawing.Rectangle(posFlame[2].X+3, posFlame[2].Y+5, (posFlame[3].X - posFlame[2].X)-3, 30-5);
             System.Drawing.Pen p = new System.Drawing.Pen(System.Drawing.Color.Blue, 3);
             //gr.DrawRectangle(p,vertical);
             //gr.DrawRectangle(p,horizontal);
@@ -229,6 +242,16 @@ namespace jssplay.entity
             }
         }
 
+        private void DrawItem(System.Drawing.Graphics   gr) {
+            for (int i = 0; i < items.Count; i++)
+            {
+                    Item it = items[i];
+                    it.Draw(gr);
+                    it.move();
+                
+            }
+
+        }
         public void Dispose()
         {
 
